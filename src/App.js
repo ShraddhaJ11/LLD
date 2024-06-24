@@ -1,4 +1,5 @@
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Body from "./components/Body";
 import Accordion from "./components/accordion/Accordion";
 import ImageSlider from "./components/image-slider/ImageSlider";
@@ -6,17 +7,43 @@ import LiveChat from "./components/live-chat/LiveChat";
 import NestedComments from "./components/nested-comments/NestedComments";
 import Pagination from "./components/pagination/Pagination";
 import SearchUI from "./components/search-ui/SearchUI";
+import About from "./components/About";
+import ProtectRoute from "./components/ProtectRoute";
+import Login from "./components/Login";
 
 export default function App() {
   return (
     <div className="App">
-      <SearchUI/>
-      <LiveChat/>
-      <Accordion />
-      <ImageSlider/>
-      <NestedComments/>
-      <Pagination/>
-      <Body />
+      <header className="text-2xl font-bold py-5 bg-black text-white text-center flex">
+        Hello World
+        <nav className="px-20 m-2 w-[1000px] flex justify-between text-lg">
+          <a href="/">Home</a>
+          <a href="/login">Login</a>
+          <a href="/about">About</a>
+          <a href="/pagination">Pagination</a>
+          <a href="/search">Search</a>
+          <a href="/image-slider">Image Slider</a>
+          <a href="/accordion">Accordion</a>
+          <a href="/nested-commnets">Nested Comments</a>
+          <a href="/live-chat">Live Chat</a>
+        </nav>
+      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Body />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          {/* empty route: without path */}
+          <Route element={<ProtectRoute />}>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/image-slider" element={<ImageSlider />}></Route>
+            <Route path="/accordion" element={<Accordion />}></Route>
+            <Route path="/nested-commnets" element={<NestedComments />}></Route>
+            <Route path="/live-chat" element={<LiveChat />}></Route>
+          </Route>
+          <Route path="/pagination" element={<Pagination />}></Route>
+          <Route path="/search" element={<SearchUI />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
